@@ -26,7 +26,7 @@ export default function AuthError() {
         </Heading>
       </InpageHeader>
       <Container maxW='container.xl' as='section'>
-        <Box layerStyle={'shadowed'}>
+        <Box layerStyle='shadowed'>
           <Text fontSize='2xl' mb={4}>
             {message}
           </Text>
