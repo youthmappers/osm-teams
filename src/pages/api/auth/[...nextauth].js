@@ -1,8 +1,30 @@
 import NextAuth from 'next-auth'
 import { mergeDeepRight } from 'ramda'
 const db = require('../../../lib/db')
+const logger = require('../../../lib/logger')
+
+const requiredEnvVars = {
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+  OSM_TEAMS_CLIENT_ID: process.env.OSM_TEAMS_CLIENT_ID,
+  OSM_TEAMS_CLIENT_SECRET: process.env.OSM_TEAMS_CLIENT_SECRET,
+}
+
+const missingEnvVars = Object.entries(requiredEnvVars)
+  .filter(([, value]) => !value)
+  .map(([key]) => key)
+
+if (missingEnvVars.length > 0) {
+  logger.error(
+    `[next-auth] Missing required environment variables: ${missingEnvVars.join(
+      ', '
+    )}. ` +
+      'Authentication will not work until these are set. ' +
+      'See .env.local.sample for reference.'
+  )
+}
 
 export const authOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   // Configure one or more authentication providers
   providers: [
     {
@@ -42,6 +64,7 @@ export const authOptions = {
 
   pages: {
     signIn: '/signin',
+    error: '/auth/error',
   },
 
   events: {
