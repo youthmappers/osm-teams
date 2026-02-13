@@ -45,6 +45,13 @@ This is because we set the token provider at `https://mapping.team/hyauth` and u
 
 Similarly to local development, we have to add `OSM_CONSUMER_KEY`, `OSM_CONSUMER_SECRET` and `DSN` to `.env`
 
+We also need to set the NextAuth-related environment variables:
+
+- `NEXTAUTH_SECRET` - A secret used to encrypt session tokens (generate with `openssl rand -base64 32`)
+- `NEXTAUTH_URL` - The canonical URL of the application (e.g. `https://mapping.team`)
+- `OSM_TEAMS_CLIENT_ID` - OAuth client ID for the NextAuth OpenID Connect provider
+- `OSM_TEAMS_CLIENT_SECRET` - OAuth client secret for the NextAuth OpenID Connect provider
+
 We also have to add a few environment variables so that the tokens are issued by the proper URL:
 
 ```bash
@@ -69,6 +76,10 @@ If you are using a sub-path of a domain you should set the `BASE_PATH` environme
 ```sh
 OSM_CONSUMER_KEY=<redacted>
 OSM_CONSUMER_SECRET=<redacted>
+OSM_TEAMS_CLIENT_ID=<redacted>
+OSM_TEAMS_CLIENT_SECRET=<redacted>
+NEXTAUTH_SECRET=<redacted>
+NEXTAUTH_URL=https://mapping.team
 APP_URL=https://mapping.team
 DSN=<redacted>
 BASE_PATH=/example

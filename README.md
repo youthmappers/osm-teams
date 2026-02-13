@@ -14,9 +14,17 @@ Setup local authentication:
 - Create a new app with the following settings:
   - Name: `OSM Teams Dev` (or another name of your preference)
   - Redirect URIs: `http://127.0.0.1:3000/api/auth/callback/osm-teams`
-- Copy client id and secret to a newly created file named `.env.local` in the repository root, following this example:
+- Copy client id and secret to a newly created file named `.env.local` in the repository root (see `.env.local.sample` for reference):
 
 ```sh
+    # Secret for NextAuth.js session encryption (generate with: openssl rand -base64 32)
+    NEXTAUTH_SECRET=<your-secret>
+
+    # OAuth client credentials for NextAuth (from the app you created above)
+    OSM_TEAMS_CLIENT_ID=<client-id>
+    OSM_TEAMS_CLIENT_SECRET=<client-secret>
+
+    # OAuth credentials for the Hydra login flow
     OSM_CONSUMER_KEY=<client-id>
     OSM_CONSUMER_SECRET=<client-secret>
 ```
